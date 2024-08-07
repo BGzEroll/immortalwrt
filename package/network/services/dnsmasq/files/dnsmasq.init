@@ -1224,6 +1224,7 @@ dnsmasq_start()
 		nft add table inet dnsmasq
 		nft add chain inet dnsmasq prerouting "{ type nat hook prerouting priority -105; policy accept; }"
 		nft add rule inet dnsmasq prerouting "meta nfproto { ipv4, ipv6 } udp dport 53 counter redirect to :$dns_port comment \"DNSMASQ HIJACK\""
+		nft add rule inet dnsmasq prerouting "meta nfproto { ipv4, ipv6 } tcp dport 53 counter redirect to :$dns_port comment \"DNSMASQ HIJACK\""
 	fi
 }
 
